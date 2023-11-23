@@ -43,7 +43,16 @@ func NewPostgres() (*gorm.DB, error) {
 	}
 	sqlDB.SetMaxIdleConns(config.DbMaxIdleConn())
 	sqlDB.SetMaxOpenConns(config.DbMaxOpenConn())
-	err = database.AutoMigrate(&storage.Customer{})
+	err = database.AutoMigrate(
+		&storage.Vendor{},
+		&storage.Courier{},
+		&storage.Customer{},
+		&storage.Product{},
+		&storage.Order{},
+		&storage.Agent{},
+		&storage.Trip{},
+		&storage.DelayReport{},
+	)
 	if err != nil {
 		return nil, fmt.Errorf("migration failed : %w", err)
 	}
