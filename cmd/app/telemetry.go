@@ -29,9 +29,9 @@ func InitTelemetry(lc fx.Lifecycle) {
 					semconv.DeploymentEnvironment(string(config.Env())),
 					semconv.ServiceName(config.Name()),
 					semconv.ServiceInstanceID(os.Getenv("MY_NODE_NAME")),
-					/*semconv.K8SNodeName(os.Getenv("MY_NODE_NAME")),
+					semconv.K8SNodeName(os.Getenv("MY_NODE_NAME")),
 					semconv.K8SPodName(os.Getenv("MY_POD_NAME")),
-					semconv.K8SNamespaceName(os.Getenv("MY_POD_NAMESPACE")),*/
+					semconv.K8SNamespaceName(os.Getenv("MY_POD_NAMESPACE")),
 					semconv.ServiceNamespace(os.Getenv("MY_POD_NAMESPACE")),
 					semconv.ServiceVersion("v1.0")),
 			)
