@@ -1,0 +1,112 @@
+definitions:
+  delay.CreateOrderDelay:
+    properties:
+      order_id:
+        type: integer
+    type: object
+  delay.NewEstimatedTime:
+    properties:
+      new_time:
+        type: string
+    type: object
+  delay.VendorDelayWeeklyReport:
+    properties:
+      total_minutes:
+        type: number
+      vendor_id:
+        type: integer
+      week_start:
+        type: string
+    type: object
+  handler.Error:
+    properties:
+      code:
+        $ref: '#/definitions/serr.ErrorCode'
+      message:
+        type: string
+      trace_id:
+        type: string
+    type: object
+  serr.ErrorCode:
+    enum:
+    - INTERNAL
+    type: string
+    x-enum-varnames:
+    - ErrInternal
+info:
+  contact: {}
+paths:
+  /agents/{agentId}/delays:
+    put:
+      description: Assign Delay to Agent fo checking
+      parameters:
+      - description: agentId id
+        in: path
+        name: agentId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Assign Delay To Agent
+      tags:
+      - Delay
+  /delays:
+    post:
+      consumes:
+      - application/json
+      description: Create a Delay For Order.
+      parameters:
+      - description: create delay request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/delay.CreateOrderDelay'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/delay.NewEstimatedTime'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handler.Error'
+      summary: Create a Delay For Order
+      tags:
+      - Delay
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Health check
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Health check
+      tags:
+      - Health
+  /vendors/delays:
+    get:
+      description: Weekly report of total delay of each vendor
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/delay.VendorDelayWeeklyReport'
+            type: array
+      summary: Vendors Delay Weekly Report
+      tags:
+      - Delay
+swagger: "2.0"

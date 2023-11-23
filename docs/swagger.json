@@ -1,0 +1,174 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/agents/{agentId}/delays": {
+            "put": {
+                "description": "Assign Delay to Agent fo checking",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delay"
+                ],
+                "summary": "Assign Delay To Agent",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "agentId id",
+                        "name": "agentId",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/delays": {
+            "post": {
+                "description": "Create a Delay For Order.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delay"
+                ],
+                "summary": "Create a Delay For Order",
+                "parameters": [
+                    {
+                        "description": "create delay request",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/delay.CreateOrderDelay"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/delay.NewEstimatedTime"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/handler.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/handler.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "description": "Health check",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health"
+                ],
+                "summary": "Health check",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/vendors/delays": {
+            "get": {
+                "description": "Weekly report of total delay of each vendor",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Delay"
+                ],
+                "summary": "Vendors Delay Weekly Report",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/delay.VendorDelayWeeklyReport"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "delay.CreateOrderDelay": {
+            "type": "object",
+            "properties": {
+                "order_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "delay.NewEstimatedTime": {
+            "type": "object",
+            "properties": {
+                "new_time": {
+                    "type": "string"
+                }
+            }
+        },
+        "delay.VendorDelayWeeklyReport": {
+            "type": "object",
+            "properties": {
+                "total_minutes": {
+                    "type": "number"
+                },
+                "vendor_id": {
+                    "type": "integer"
+                },
+                "week_start": {
+                    "type": "string"
+                }
+            }
+        },
+        "handler.Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "$ref": "#/definitions/serr.ErrorCode"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "trace_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "serr.ErrorCode": {
+            "type": "string",
+            "enum": [
+                "INTERNAL"
+            ],
+            "x-enum-varnames": [
+                "ErrInternal"
+            ]
+        }
+    }
+}

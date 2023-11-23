@@ -56,7 +56,6 @@ func (h DelayHandler) CreateOrderDelay(ctx *gin.Context) {
 // @Tags         Delay
 // @Produce      json
 // @Param        agentId     path       string  true  "agentId id"
-// @Success      204  {object}
 // @Router       /agents/{agentId}/delays [PUT]
 func (h DelayHandler) AssignDelayToAgent(ctx *gin.Context) {
 	agentId, err := strconv.Atoi(ctx.Param("agentId"))
@@ -69,7 +68,7 @@ func (h DelayHandler) AssignDelayToAgent(ctx *gin.Context) {
 		handleError(ctx, err)
 		return
 	}
-	ctx.JSON(http.StatusNoContent, nil)
+	ctx.JSON(http.StatusCreated, nil)
 }
 
 // VendorsDelayWeeklyReport

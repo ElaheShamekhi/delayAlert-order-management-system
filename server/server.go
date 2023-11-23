@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"delayAlert-order-management-system/docs"
 	"delayAlert-order-management-system/internal/config"
 	"errors"
 	"fmt"
@@ -34,10 +35,9 @@ func SetupRoutes(s *Server) {
 }
 
 func (s *Server) setDoc() {
-	//docs.SwaggerInfo.Title = "delayAlert-order-management-system"
-	////docs.SwaggerInfo.Description = getDocDescription()
-	//docs.SwaggerInfo.Version = "1.0"
-	//docs.SwaggerInfo.Host = config.ServerAddress()
+	docs.SwaggerInfo.Title = "delayAlert-order-management-system"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = config.Address()
 }
 
 func Run(lc fx.Lifecycle, s *Server) {
