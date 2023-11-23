@@ -1,0 +1,21 @@
+env: "local"
+name: "delayAlert-order-management-system"
+server:
+  port: "9000"
+  debug: true
+  address: "localhost:9000"
+#DATABASE
+db:
+  name: "delayAlert-order-management-system"
+  host: "localhost"
+  port: "5432"
+  user: "postgres"
+  password: "postgres"
+  debug: true
+  maxIdleConn: "5"
+  maxOpenConn: "10"
+app:
+  log:
+    level: "info"
+  locale:
+    path: "locale"

@@ -1,0 +1,34 @@
+"non-business users are not supported"="تنها کاربران شرکتی قادر به انجام این عملیات هستند!"
+
+"invalid checkin format"="فرمت تاریخ ورود اشتباه است"
+"invalid checkout format"="فرمت تاریخ خروج اشتباه است"
+"checkin cannot be equal to checkout"="تاریخ ورود و خروج نمیتواند یکسان باشد"
+"order date be after checkout"="تاریخ ورود نمیتواند بعد از تاریخ ورود باشد"
+"order date cannot be in the past"="تاریخ سفارش نمیتواند در گذشته باشد"
+
+"unauthenticated requests are not supported"="لطفا ابتدا وارد حساب کاربری خود شوید."
+
+"Order was fulfilled"="سفارش شما قبلا انجام شده است."
+
+"invalid order state for before payment"="امکان پرداخت برای این سفارش در این لحظه وجود ندارد."
+
+"invalid book state for confirm info"="امکان تایید یا تغییر اطلاعات برای این رزرو ممکن نمیباشد."
+"payment is being processed"="پرداخت در حال پردازش میباشد."
+"insufficient fund"="اعتبار کافی نمیباشد."
+"invalid reservation type for payment"="امکان پرداخت از طریق درگاه برای این نوع رزرو ممکن نمیباشد."
+"invalid contract type for payment"="امکان پرداخت از طریق درگاه برای قرارداد شما ممکن نیست."
+
+"Invalid payment state"="وضعیت پرداخت نامعتبر است!"
+"Payment was canceled"="پرداخت لفو شده است."
+"Payment was reversed"="مبلغ پرداخت شده برگشت خورده است."
+"Payment already verified"="پرداخت قبلا تایید شده است."
+"Book already fulfilled"="رزرو شما قبلا تکمیل شده است."
+"Book info not confirmed"="لطفا ابتدا اطلاعات رزرو را کامل کنید."
+"Invalid book state"="رزرو در وضصعیت مناسبی برای این عملیات نیست."
+"Invalid book state for filter"="وضعیت انتخاب شده مجاز برای جستجو نیست."
+"Non-cash contract type"="نوع قرارداد باید پرداخت نقدی باشد."
+"Non-credit contract type"="نوع قرارداد باید پرداخت اعتباری باشد."
+
+"Invalid date format"="فرمت تاریخ نامعتبر است."
+"Invalid character in special request"="درخواست ویژه شامل کاراکتر نامعتبر است."
+"exceeds the maximum allowed length of characters"="تعداد کاراکتر بیش از حد مجاز است."
