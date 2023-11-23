@@ -1,5 +1,6 @@
 # delayAlert-order-management-system
-This project is an order delay management system built using Golang and PostgreSQL. It provides a RESTful API for reporting, assigning, and tracking order delays. The project also includes Swagger documentation for the API endpoints. Additionally, the project utilizes Docker Compose and Dockerfile for simplified deployment and containerization.
+This project is an order delay management system built using Golang and PostgreSQL. 
+It provides a RESTful API for reporting, assigning, and tracking order delays. The project also includes Swagger documentation for the API endpoints. Additionally, the project utilizes Docker Compose and Dockerfile for simplified deployment and containerization.
 
 ## Features
 * Report order delays
