@@ -39,13 +39,15 @@ type Product struct {
 
 type Order struct {
 	gorm.Model
-	Vendor       Vendor    `gorm:"foreignKey:VendorId"`
-	Customer     Customer  `gorm:"foreignKey:CustomerId"`
-	State        string    `gorm:"type:varchar(32);not null;default:''"`
-	RegisterTime time.Time `gorm:"index;type:timestamptz"`
-	DeliveryTime time.Time `gorm:"index;type:timestamptz"`
-	VendorId     uint
-	CustomerId   uint
+	Vendor        Vendor    `gorm:"foreignKey:VendorId"`
+	Customer      Customer  `gorm:"foreignKey:CustomerId"`
+	State         string    `gorm:"type:varchar(32);not null;default:''"`
+	RegisterTime  time.Time `gorm:"index;type:timestamptz"`
+	DeliveryTime  int       `gorm:"type:int;not null;default:0"`
+	HasDelay      bool      `gorm:"index;type:bool;default:false"`
+	DeliveredTime time.Time `gorm:"index;type:timestamptz"`
+	VendorId      uint
+	CustomerId    uint
 }
 
 type Agent struct {

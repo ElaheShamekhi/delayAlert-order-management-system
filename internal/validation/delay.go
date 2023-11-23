@@ -11,6 +11,7 @@ type ErrCode string
 
 const (
 	ErrInvalidDateFormat     ErrCode = "INVALID_DATE_FORMAT"
+	ErrInvalidSubmitDelay    ErrCode = "INVALID_SUBMIT_DELAY"
 	ErrInvalidSpecialRequest ErrCode = "INVALID_SPECIAL_REQUEST"
 	ErrUnknown               ErrCode = "UNKNOWN"
 )
@@ -61,6 +62,16 @@ func (v *Validation) SetMethod(method string) *Validation {
 func (v *Validation) MultiErr() *Validation {
 	v.MultiError = true
 	return v
+}
+
+func TimeValidToSubmitDelay(registerTime time.Time, deliveryTime int) Validator {
+	return func(ctx context.Context) *Err {
+		deliveryDuration := time.Duration(deliveryTime) * time.Minute
+		if registerTime.Add(deliveryDuration).Before(time.Now()) {
+			return &Err{Code: ErrInvalidSubmitDelay, Message: "Delay can not submit before delivery time over"}
+		}
+		return nil
+	}
 }
 
 func StrDate(date string) Validator {

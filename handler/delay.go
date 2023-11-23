@@ -42,7 +42,12 @@ func (h DelayHandler) CreateOrderDelay(ctx *gin.Context) {
 		handleError(ctx, err)
 		return
 	}
-	//TODO
+	err := h.delay.CreateOrderDelay(request)
+	if err != nil {
+		handleError(ctx, err)
+		return
+	}
+	ctx.JSON(http.StatusCreated, nil)
 }
 
 // AssignDelayToAgent
@@ -70,5 +75,10 @@ func (h DelayHandler) AssignDelayToAgent(ctx *gin.Context) {
 // @Success      200  {object} //TODO
 // @Router       /vendors/delays [GET]
 func (h DelayHandler) VendorsDelayWeeklyReport(ctx *gin.Context) {
-
+	WeeklyReport, err := h.delay.VendorsDelayWeeklyReport()
+	if err != nil {
+		handleError(ctx, err)
+		return
+	}
+	ctx.JSON(http.StatusOK, WeeklyReport)
 }
