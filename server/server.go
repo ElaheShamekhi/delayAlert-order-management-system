@@ -29,17 +29,6 @@ func NewServer() *Server {
 	return s
 }
 
-func (s *Server) SetHealthFunc(f func() error) *Server {
-	s.healthFunc = func(ctx *gin.Context) {
-		if err := f(); err != nil {
-			ctx.AbortWithStatus(http.StatusInternalServerError)
-			return
-		}
-		ctx.JSON(http.StatusOK, gin.H{"status": "ok"})
-	}
-	return s
-}
-
 func SetupRoutes(s *Server) {
 	s.Engine.GET("/health", s.healthFunc)
 }
