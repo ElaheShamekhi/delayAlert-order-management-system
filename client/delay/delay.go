@@ -38,9 +38,9 @@ func (c *Client) GetNewEstimatedDelay() (*time.Time, error) {
 		}
 		return nil, errors.New("unknown status error")
 	}
-	var decodeTo any
+	var decodeTo *time.Time // i dont know the response of this url --> always return 404
 	if err := json.NewDecoder(res.Body).Decode(decodeTo); err != nil {
 		return nil, errors.Join(err, fmt.Errorf("failed to decode '%s' response", url))
 	}
-	return nil, nil
+	return decodeTo, nil
 }

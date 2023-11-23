@@ -11,7 +11,7 @@ import (
 func SetupDelaysRoutes(s *server.Server, h DelayHandler) {
 	s.Engine.POST("/delays", h.CreateOrderDelay)
 	s.Engine.PUT("/agents/:agentId/delays", h.AssignDelayToAgent)
-	s.Engine.GET("/vendors/delays")
+	s.Engine.GET("/vendors/delays", h.VendorsDelayWeeklyReport)
 
 }
 
@@ -32,7 +32,7 @@ func NewDelayHandler(delay *delay.Service) DelayHandler {
 // @Accept       json
 // @Produce      json
 // @Param        body			body		delay.CreateOrderDelay		true	"create delay request"
-// @Success      200			{object}	//TODO
+// @Success      200			{object}	delay.NewEstimatedTime
 // @Failure      400  			{object}	Error
 // @Failure      500  			{object}  	Error
 // @Router       /delays	[POST]
@@ -42,12 +42,12 @@ func (h DelayHandler) CreateOrderDelay(ctx *gin.Context) {
 		handleError(ctx, err)
 		return
 	}
-	err := h.delay.CreateOrderDelay(request)
+	newTime, err := h.delay.CreateOrderDelay(request)
 	if err != nil {
 		handleError(ctx, err)
 		return
 	}
-	ctx.JSON(http.StatusCreated, nil)
+	ctx.JSON(http.StatusCreated, newTime)
 }
 
 // AssignDelayToAgent
@@ -56,15 +56,20 @@ func (h DelayHandler) CreateOrderDelay(ctx *gin.Context) {
 // @Tags         Delay
 // @Produce      json
 // @Param        agentId     path       string  true  "agentId id"
-// @Success      200  {object} //TODO
+// @Success      204  {object}
 // @Router       /agents/{agentId}/delays [PUT]
 func (h DelayHandler) AssignDelayToAgent(ctx *gin.Context) {
-	_, err := strconv.Atoi(ctx.Param("agentId"))
+	agentId, err := strconv.Atoi(ctx.Param("agentId"))
 	if err != nil {
 		ctx.AbortWithStatus(http.StatusNotFound)
 		return
 	}
-
+	err = h.delay.AssignDelayToAgent(agentId)
+	if err != nil {
+		handleError(ctx, err)
+		return
+	}
+	ctx.JSON(http.StatusNoContent, nil)
 }
 
 // VendorsDelayWeeklyReport
@@ -72,7 +77,7 @@ func (h DelayHandler) AssignDelayToAgent(ctx *gin.Context) {
 // @Description  Weekly report of total delay of each vendor
 // @Tags         Delay
 // @Produce      json
-// @Success      200  {object} //TODO
+// @Success      200  {object}  []delay.VendorDelayWeeklyReport
 // @Router       /vendors/delays [GET]
 func (h DelayHandler) VendorsDelayWeeklyReport(ctx *gin.Context) {
 	WeeklyReport, err := h.delay.VendorsDelayWeeklyReport()

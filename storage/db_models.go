@@ -70,6 +70,7 @@ type DelayReport struct {
 	Order            Order     `gorm:"foreignKey:OrderId"`
 	Agent            Agent     `gorm:"foreignKey:AgentId"`
 	NewEstimatedTime time.Time `gorm:"index;type:timestamptz"`
+	IsChecked        bool      `gorm:"index;type:bool;default:false"`
 	AgentId          uint
 	OrderId          uint
 }

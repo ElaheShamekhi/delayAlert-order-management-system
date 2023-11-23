@@ -37,7 +37,25 @@ func (s *Storage) GetTripDetails(orderId int) (*Trip, error) {
 		return nil, query.Error
 	}
 	return &trip, nil
+}
 
+func (s *Storage) GetFirstDelayNotChecked() (*DelayReport, error) {
+	var result DelayReport
+	query := s.db.Model(&DelayReport{}).Where("order_id is null and is_checked = false").Order("created_at").First(&result)
+	if query.Error != nil {
+		return nil, query.Error
+	}
+	return &result, nil
+}
+
+func (s *Storage) AssignDelayToAgent(reportId, agentId uint) error {
+	query := s.db.Model(&DelayReport{}).Where("id = ?", reportId).Updates(DelayReport{
+		AgentId: agentId,
+	})
+	if query.Error != nil {
+		return query.Error
+	}
+	return nil
 }
 
 type VendorsDelayWeeklyReport struct {
